@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>St. Ann Mission Day & Boarding Primary School</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --navy-blue: #000080;
+            --sky-blue: #87CEEB;
+            --white: #FFFFFF;
+            --yellow: #FFFF00;
+            --light-green: #90EE90;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: var(--white);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: linear-gradient(135deg, var(--navy-blue) 0%, var(--sky-blue) 100%);
+            color: var(--white);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--white);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--white);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Main Content */
+        main {
+            margin-top: 80px;
+        }
+
+        .page {
+            display: none;
+            min-height: calc(100vh - 80px);
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Home Page */
+        .hero {
+            background: linear-gradient(135deg, var(--navy-blue) 0%, var(--sky-blue) 100%);
+            color: var(--white);
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero h2 {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards 0.5s;
+        }
+
+        .motto-section {
+            background: var(--white);
+            padding: 3rem 0;
+            text-align: center;
+        }
+
+        .motto-container {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--navy-blue);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .motto-word {
+            opacity: 0;
+        }
+
+        .motto-learn {
+            animation: popUp 1s ease forwards 1s;
+        }
+
+        .motto-and {
+            animation: fadeIn 1s ease forwards 2s;
+        }
+
+        .motto-walk {
+            animation: slideWalk 2s ease forwards 3s;
+            opacity: 0; /* Start hidden, will be set to visible by animation */
+        }
+
+        .motto-in {
+            animation: fadeIn 1s ease forwards 5s;
+        }
+
+        .motto-light {
+            animation: fadeIn 1s ease forwards 5s, colorCycle 3s ease-in-out infinite 6s;
+        }
+
+        .graduation-icon {
+            font-size: 2rem;
+            margin-left: 0.5rem;
+            opacity: 0;
+            animation: popUp 1s ease forwards 1.5s;
+        }
+
+        /* About Page */
+        .about-section {
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .about-section h2 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--navy-blue);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .text-container {
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .values-section {
+            background: var(--sky-blue);
+            padding: 3rem 0;
+            overflow: hidden;
+        }
+
+        .values-container {
+            display: flex;
+            gap: 2rem;
+            width: max-content;
+            animation: coreValuesLoop 20s linear infinite;
+        }
+
+        .value-item {
+            min-width: 200px;
+            max-width: 200px;
+            flex: 0 0 200px;
+            text-align: center;
+            padding: 1.5rem;
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: none;
+            /* No magnification */
+        }
+
+        .value-item:nth-child(3) {
+            transform: none;
+        }
+
+        .why-us-section {
+            padding: 3rem 0;
+        }
+
+        .why-us-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .why-us-card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .why-us-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        .why-us-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .why-us-card h3 {
+            padding: 1rem;
+            font-family: 'Poppins', sans-serif;
+            color: var(--navy-blue);
+            text-align: center;
+        }
+
+        /* Contact Page */
+        .contact-section {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .contact-info {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #f8f9fa;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .contact-info h2 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--navy-blue);
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            margin: 1.5rem 0;
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        .contact-item i {
+            color: var(--navy-blue);
+            margin-right: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--navy-blue);
+            color: var(--white);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-info {
+            margin-bottom: 1rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes popUp {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideWalk {
+            0% {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            20% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            60% {
+                opacity: 1;
+                transform: translateX(40px);
+            }
+            80% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0); /* Rest at default position, visible */
+            }
+        }
+
+        @keyframes colorCycle {
+            0%, 100% {
+                color: var(--yellow);
+            }
+            50% {
+                color: var(--light-green);
+            }
+        }
+
+        @keyframes coreValuesLoop {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        @keyframes slideRight {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: var(--navy-blue);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                padding: 2rem 0;
+                gap: 1rem;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero h2 {
+                font-size: 1.2rem;
+            }
+
+            .motto-container {
+                font-size: 1.8rem;
+            }
+
+            .why-us-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .values-container {
+                gap: 1rem;
+            }
+
+            .value-item {
+                min-width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="nav-container">
+                <a href="#" class="logo" style="display: flex; align-items: center; gap: 0.5rem;">
+                    <img src="St.Ann Logo.jpeg" alt="St. Ann's School Logo" style="height: 48px; width: 48px; object-fit: contain; border-radius: 50%; background: #fff;">
+                    <span style="color: var(--white); font-family: 'Poppins', sans-serif; font-size: 1.5rem; font-weight: 700;">St. Ann's School</span>
+                </a>
+                <ul class="nav-menu">
+                    <li><a href="#" onclick="showPage('home')">Home</a></li>
+                    <li><a href="#" onclick="showPage('about')">About</a></li>
+                    <li><a href="https://www.instagram.com/st.ann.school" target="_blank">Gallery</a></li>
+                    <li><a href="#" onclick="showPage('contact')">Contact</a></li>
+                </ul>
+                <div class="hamburger" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- Home Page -->
+        <div id="home" class="page active">
+            <section class="hero">
+                <div class="container">
+                    <h1>Karibu St. Ann Mission Day & Boarding Primary School</h1>
+                    <h2>Where Excellence meets Opportunity</h2>
+                </div>
+            </section>
+
+            <section class="motto-section">
+                <div class="container">
+                    <div class="motto-container">
+                        <span class="motto-word motto-learn">Learn</span>
+                        <i class="fas fa-graduation-cap graduation-icon"></i>
+                        <span class="motto-word motto-and">&</span>
+                        <span class="motto-word motto-walk">Walk</span>
+                        <span class="motto-word motto-in">in the</span>
+                        <span class="motto-word motto-light">Light</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- About Page -->
+        <div id="about" class="page">
+            <div class="container">
+                <section class="about-section">
+                    <h2>Our History</h2>
+                    <div class="text-container">
+                        <p>St. Ann Mission Day & Boarding Primary School was established with a vision to provide quality education rooted in Christian values. Our institution has been serving the community for decades, nurturing young minds and preparing them for a bright future. We have grown from a small mission school to a comprehensive educational institution that serves both day and boarding students.</p>
+                    </div>
+                </section>
+
+                <section class="about-section">
+                    <h2>The Mission</h2>
+                    <div class="text-container">
+                        <p>Our mission is to provide holistic education that develops the intellectual, spiritual, social, and physical potential of every child. We strive to create a nurturing environment where students can grow academically, morally, and spiritually, preparing them to become responsible citizens and leaders of tomorrow.</p>
+                    </div>
+                </section>
+
+                <section class="about-section">
+                    <h2>Vision</h2>
+                    <div class="text-container">
+                        <p>To be a leading educational institution that empowers students to excel academically, grow spiritually, and contribute positively to society. We envision a school where every child discovers their unique potential and develops the skills, knowledge, and character needed to succeed in an ever-changing world.</p>
+                    </div>
+                </section>
+
+                <section class="values-section">
+                    <h2 style="color: var(--navy-blue); text-align: center; margin-bottom: 2rem;">Our Core Values</h2>
+                    <div class="values-container">
+                        <div class="value-item">
+                            <h3>Integrity</h3>
+                            <p>We uphold honesty and moral principles in all our actions.</p>
+                        </div>
+                        <div class="value-item">
+                            <h3>Excellence</h3>
+                            <p>We strive for the highest standards in education and character.</p>
+                        </div>
+                        <div class="value-item">
+                            <h3>Compassion</h3>
+                            <p>We show kindness and understanding to all members of our community.</p>
+                        </div>
+                        <div class="value-item">
+                            <h3>Innovation</h3>
+                            <p>We embrace new ideas and creative approaches to learning.</p>
+                        </div>
+                        <div class="value-item">
+                            <h3>Integrity</h3>
+                            <p>We uphold honesty and moral principles in all our actions.</p>
+                        </div>
+                        <div class="value-item">
+                            <h3>Excellence</h3>
+                            <p>We strive for the highest standards in education and character.</p>
+                        </div>
+                        <!-- Duplicate for seamless loop -->
+                        <div class="value-item">
+                            <h3>Integrity</h3>
+                            <p>We uphold honesty and moral principles in all our actions.</p>
+                        </div>
+                        <div class="value-item">
+                            <h3>Excellence</h3>
+                            <p>We strive for the highest standards in education and character.</p>
+                        </div>
+                        <div class="value-item">
+                            <h3>Compassion</h3>
+                            <p>We show kindness and understanding to all members of our community.</p>
+                        </div>
+                        <div class="value-item">
+                            <h3>Innovation</h3>
+                            <p>We embrace new ideas and creative approaches to learning.</p>
+                        </div>
+                         <div class="value-item">
+                            <h3>Integrity</h3>
+                            <p>We uphold honesty and moral principles in all our actions.</p>
+                        </div>
+                        <div class="value-item">
+                            <h3>Excellence</h3>
+                            <p>We strive for the highest standards in education and character.</p>
+                        </div>
+                        <div class="value-item">
+                            <h3>Compassion</h3>
+                            <p>We show kindness and understanding to all members of our community.</p>
+                        </div>
+                        <div class="value-item">
+                            <h3>Innovation</h3>
+                            <p>We embrace new ideas and creative approaches to learning.</p>
+                        </div>
+                        <div class="value-item">
+                            <h3>Integrity</h3>
+                            <p>We uphold honesty and moral principles in all our actions.</p>
+                        </div>
+                        <div class="value-item">
+                            <h3>Excellence</h3>
+                            <p>We strive for the highest standards in education and character.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="why-us-section">
+                    <h2 style="color: var(--navy-blue); text-align: center; margin-bottom: 2rem;">Why Choose Us</h2>
+                    <div class="why-us-grid">
+                        <div class="why-us-card">
+                            <img src="https://images.pexels.com/photos/289737/pexels-photo-289737.jpeg" alt="Academics">
+                            <h3>Academics</h3>
+                        </div>
+                        <div class="why-us-card">
+                            <img src="https://images.pexels.com/photos/159711/books-bookstore-book-reading-159711.jpeg" alt="Library">
+                            <h3>Library</h3>
+                        </div>
+                        <div class="why-us-card">
+                            <img src="sports.jpg" alt="Sports">
+                            <h3>Sports</h3>
+                        </div>
+                        <div class="why-us-card">
+                            <img src="transport.jpg" alt="Transport">
+                            <h3>Transport</h3>
+                        </div>
+                        <div class="why-us-card">
+                            <img src="boarding.jpg" alt="Boarding">
+                            <h3>Boarding</h3>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Contact Page -->
+        <div id="contact" class="page">
+            <div class="container">
+                <section class="contact-section">
+                    <div class="contact-info">
+                        <h2>Contact Us</h2>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <span>+254 745 142 556</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>stanndom24@gmail.com</span>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p>St. Ann Mission Day & Boarding Primary School</p>
+                    <p>Kariene, Meru, Kenya</p>
+                    <p>P.O. Box PRIVATE, NKUBU</p>
+                </div>
+                <p>&copy; 2025 St. Ann's School. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function showPage(pageId) {
+            // Hide all pages
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Close mobile menu if open
+            const navMenu = document.querySelector('.nav-menu');
+            navMenu.classList.remove('active');
+        }
+
+        function toggleMenu() {
+            const navMenu = document.querySelector('.nav-menu');
+            navMenu.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                const navMenu = document.querySelector('.nav-menu');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(0, 0, 128, 0.95)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, var(--navy-blue) 0%, var(--sky-blue) 100%)';
+            }
+        });
+    </script>
+</body>
+</html>
